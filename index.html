@@ -1,413 +1,151 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ckb" dir="rtl">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>🚨 Shusha's Decision Page 🚨</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بۆ شووشە 💖</title>
+
+    <!-- Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
     <style>
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
+
         body {
-            background: linear-gradient(145deg, #0d0d1a, #1a1a2e);
-            min-height: 100vh;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Segoe UI', 'Poppins', system-ui, sans-serif;
-            padding: 20px;
-            margin: 0;
-        }
-        .card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 60px 20px 60px 20px;
-            padding: 60px 50px;
-            max-width: 700px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 0 2px rgba(255, 150, 255, 0.1);
-            position: relative;
+            font-family: Tahoma, 'Segoe UI', sans-serif;
             overflow: hidden;
-        }
-        /* Glowing border animation */
-        .card::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #ff6b9d, #ffa07a, #ffd700, #ff6b9d);
-            background-size: 400% 400%;
-            border-radius: 62px 22px 62px 22px;
-            z-index: -1;
-            animation: glow 4s ease infinite;
-        }
-        @keyframes glow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            touch-action: manipulation;
         }
 
-        .emoji-big {
-            font-size: 80px;
-            display: block;
-            margin-bottom: 10px;
-            animation: bounce 1.5s infinite;
-        }
-        @keyframes bounce {
-            0%,100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
-        h1 {
-            color: #fff;
-            font-size: 2.8rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            margin-bottom: 8px;
-        }
-        h1 span {
-            background: linear-gradient(135deg, #ffb3c6, #ff8fab);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .box {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            width: 85%;
+            max-width: 350px;
+            position: relative;
         }
 
-        .sub {
-            color: #b8b8d0;
-            font-size: 1.2rem;
-            font-weight: 300;
+        .cat-img {
+            width: 130px;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 15px;
             margin-bottom: 15px;
-            border-bottom: 2px dashed rgba(255, 255, 255, 0.1);
-            padding-bottom: 20px;
         }
 
-        .question {
-            color: #f0e6ff;
-            font-size: 1.8rem;
-            font-weight: 600;
-            margin: 30px 0 35px 0;
-            line-height: 1.4;
-        }
-        .question small {
-            display: block;
-            font-size: 1rem;
-            font-weight: 300;
-            color: #a8a8c8;
-            margin-top: 8px;
-        }
+        h1 { color: #ff4b72; font-size: 1.6rem; margin-bottom: 8px; }
+        p { color: #444; font-size: 1.05rem; line-height: 1.5; margin-bottom: 20px; }
 
-        .btn-group {
+        .btns {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 60px;
-            flex-wrap: wrap;
-            margin-top: 10px;
+            gap: 15px;
             position: relative;
-            min-height: 100px;
+            min-height: 60px;
         }
 
-        .btn {
-            padding: 18px 55px;
-            font-size: 2.2rem;
-            font-weight: 700;
+        button {
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: bold;
             border: none;
-            border-radius: 100px;
+            border-radius: 25px;
             cursor: pointer;
-            transition: all 0.25s ease;
-            box-shadow: 0 8px 0 rgba(0, 0, 0, 0.3);
-            letter-spacing: 2px;
-            position: relative;
-            min-width: 140px;
+            transition: transform 0.15s ease;
         }
 
-        .btn-yes {
-            background: #00d26a;
-            color: #fff;
-            box-shadow: 0 8px 0 #008a44, 0 0 30px rgba(0, 210, 106, 0.4);
-        }
-        .btn-yes:hover {
-            transform: scale(1.08);
-            box-shadow: 0 8px 0 #008a44, 0 0 60px rgba(0, 210, 106, 0.7);
+        #yesBtn {
+            background: #ff4b72;
+            color: white;
+            box-shadow: 0 4px 10px rgba(255, 75, 114, 0.3);
+            z-index: 2;
         }
 
-        .btn-no {
-            background: #ff3d6b;
-            color: #fff;
-            box-shadow: 0 8px 0 #a82244, 0 0 30px rgba(255, 61, 107, 0.3);
-            transition: all 0.1s ease;
-            position: relative;
+        #noBtn {
+            background: #e0e0e0;
+            color: #666;
+            position: absolute;
             z-index: 10;
         }
 
-        /* The magic "No" button text that changes */
-        .btn-no .no-text {
-            display: inline-block;
-        }
-
-        /* Celebration overlay */
-        .celebration {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(6px);
-            z-index: 999;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            animation: fadeIn 0.5s ease;
-        }
-        .celebration.open {
-            display: flex;
-        }
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: scale(0.9); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-
-        .celeb-box {
-            background: linear-gradient(145deg, #1e1e38, #0d0d1a);
-            border: 3px solid #ffd700;
-            border-radius: 60px 20px 60px 20px;
-            padding: 50px 60px;
-            text-align: center;
-            max-width: 600px;
-            box-shadow: 0 0 100px rgba(255, 215, 0, 0.3);
-        }
-        .celeb-box h2 {
-            color: #ffd700;
-            font-size: 3.5rem;
-            font-weight: 900;
-        }
-        .celeb-box p {
-            color: #d0d0f0;
-            font-size: 1.5rem;
-            margin: 20px 0;
-        }
-        .celeb-box .big-emoji {
-            font-size: 80px;
-        }
-        .celeb-box .btn-close {
-            margin-top: 20px;
-            padding: 12px 40px;
-            background: #ffd700;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #1a1a2e;
-            cursor: pointer;
-        }
-
-        /* Floating emojis rain */
-        .confetti-emoji {
-            position: fixed;
-            font-size: 2.5rem;
-            pointer-events: none;
-            z-index: 1000;
-            animation: fall linear forwards;
-        }
-        @keyframes fall {
-            0% { opacity: 1; transform: translateY(-50px) rotate(0deg); }
-            100% { opacity: 0; transform: translateY(110vh) rotate(720deg); }
-        }
-
-        .footer {
-            margin-top: 35px;
-            color: #5a5a7a;
-            font-size: 0.9rem;
-            letter-spacing: 3px;
-        }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
-    <div class="card" id="mainCard">
-        <span class="emoji-big">👯‍♀️</span>
-        <h1>Hey, <span>Shusha</span>!</h1>
-        <div class="sub">✦ Bestie Verification Portal ✦</div>
-
-        <div class="question">
-            Will you be my<br />
-            ride-or-die platonic soulmate<br />
-            <small>(a.k.a. put up with my chaos forever?)</small>
+    <!-- Preshandani pirsyarakah -->
+    <div class="box" id="card1">
+        <!-- Cat Image -->
+        <img id="catImg" class="cat-img" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Z2eHowdmk5Zmd1NWZodDdocXZ0NDd6OGY0Nzh6eGN2dDduZ3pxZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Lq0h93752f6J9tijrh/giphy.gif" alt="Cute Cat">
+        
+        <h1>هەی شووشە! 💖</h1>
+        <p id="msgText">دەبیت بە باشترین هاوڕێ و هاوبەشی بەزمەکانم بۆ هەتا هەتایە؟ 👯‍♀️✨</p>
+        
+        <div class="btns">
+            <button id="yesBtn" onclick="yesClicked()">بەڵێ! 💖</button>
+            <button id="noBtn" onclick="moveNo(event)" ontouchstart="moveNo(event)">نەخێر ❌</button>
         </div>
-
-        <div class="btn-group" id="btnGroup">
-            <button class="btn btn-yes" id="yesBtn">YES 🫶</button>
-            <button class="btn btn-no" id="noBtn">
-                <span class="no-text">NO 🙅</span>
-            </button>
-        </div>
-
-        <div class="footer">✦ actions > words. no is not an option ✦</div>
     </div>
 
-    <!-- CELEBRATION OVERLAY -->
-    <div class="celebration" id="celebration">
-        <div class="celeb-box">
-            <div class="big-emoji">🎉💖✨</div>
-            <h2>FOREVER LOCKED IN!</h2>
-            <p>
-                Shusha, you just signed the<br />
-                <strong style="color:#ffb3c6;">Unbreakable Bestie Treaty</strong> 🌸<br />
-                <span style="font-size:1.2rem; color:#aaa;">
-                    No refunds. No take-backs.<br />
-                    You're stuck with me, bestie. MWAH! 😘
-                </span>
-            </p>
-            <button class="btn-close" id="closeCeleb">❤️‍🔥 YES I LOVE THIS ❤️‍🔥</button>
-        </div>
+    <!-- Preshandani encamakam -->
+    <div class="box hidden" id="card2">
+        <img class="cat-img" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNXJhZXVsZnF5cTFscXp4czhkZ3VndDF6ODJtdG14ZnIycHRzOXQyciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/MDJ9IbxxvDUQM/giphy.gif" alt="Happy Cat">
+        <h1>ئەی گیان! 🎉💖</h1>
+        <p>دەزانم هەر بەڵێ دەکەیت! <br>ئیتر بۆ هەتا هەتایە لە کۆڵم نابیتەوە 🥹✨</p>
     </div>
 
     <script>
-        (function() {
-            const noBtn = document.getElementById('noBtn');
-            const yesBtn = document.getElementById('yesBtn');
-            const celebration = document.getElementById('celebration');
-            const closeCeleb = document.getElementById('closeCeleb');
-            const mainCard = document.getElementById('mainCard');
-            const noText = noBtn.querySelector('.no-text');
+        const noBtn = document.getElementById('noBtn');
+        const catImg = document.getElementById('catImg');
+        const msgText = document.getElementById('msgText');
 
-            // --- The "NO" button that runs away ---
-            function moveNoButton() {
-                const cardRect = mainCard.getBoundingClientRect();
-                const btnRect = noBtn.getBoundingClientRect();
+        // Sad cat crying memes
+        const sadCats = [
+            "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbnFlcWg3OHF4eHRubWVrMXptM3lndTh1MGFidG1xeXQybzhxdnpzOSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/d22UJ47yv74q6424/giphy.gif",
+            "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaGcxYzdyZHQxeXZwZnRzcTByYnIwbmswOG5ybzVpYzlydHgyOXlqZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/BEob506BCpE88/giphy.gif"
+        ];
 
-                // Get safe area inside the card
-                const padding = 20;
-                const maxX = cardRect.width - noBtn.offsetWidth - padding;
-                const maxY = cardRect.height - noBtn.offsetHeight - padding;
+        let count = 0;
 
-                // Random new position inside the card (relative)
-                let newX = Math.random() * maxX;
-                let newY = Math.random() * maxY;
+        // Function for running away on mobile tap / click
+        function moveNo(e) {
+            e.preventDefault(); // Ragenandani kliky asayi
+            
+            // Gorini weney pishilaka bo xambar
+            catImg.src = sadCats[count % sadCats.length];
+            msgText.innerHTML = "تکایە کلیک لە نەخێر مەکە... 🥹💔";
+            count++;
 
-                // Make sure it doesn't overlap the YES button too much (optional)
-                // Just apply positions
-                noBtn.style.position = 'absolute';
-                noBtn.style.left = newX + 'px';
-                noBtn.style.top = newY + 'px';
-                noBtn.style.transform = 'scale(0.9) rotate(' + (Math.random() * 10 - 5) + 'deg)';
+            // Rakirdani dukhmeh "Naxer"
+            const x = Math.floor(Math.random() * 220) - 110;
+            const y = Math.floor(Math.random() * 220) - 110;
+            noBtn.style.transform = `translate(${x}px, ${y}px)`;
+        }
 
-                // Change the text to be funny/guilt-trippy
-                const messages = [
-                    "NO?! 😤",
-                    "TRY AGAIN 🫵",
-                    "UNACCEPTABLE ❌",
-                    "I'M MOVING 🏃",
-                    "JUST SAY YES 🤨",
-                    "BESTIE PLEASE 🥺",
-                    "LAST CHANCE 👀",
-                    "I'M FAST AS F 🏎️",
-                    "ACTIONS > WORDS 💅",
-                    "LOL NICE TRY 🤡"
-                ];
-                const randomMsg = messages[Math.floor(Math.random() * messages.length)];
-                noText.textContent = randomMsg;
+        // Katici dukhmeh "Bale" dadagirit
+        function yesClicked() {
+            document.getElementById('card1').classList.add('hidden');
+            document.getElementById('card2').classList.remove('hidden');
 
-                // Shrink slightly to be more "annoying"
-                noBtn.style.fontSize = (1.6 + Math.random() * 0.8) + 'rem';
-            }
-
-            // Move on hover (desktop) and on touch (mobile)
-            noBtn.addEventListener('mouseenter', function(e) {
-                moveNoButton();
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
             });
-
-            // For mobile: move when they try to touch it
-            noBtn.addEventListener('touchstart', function(e) {
-                e.preventDefault(); // prevent actual click
-                moveNoButton();
-            });
-
-            // If they somehow manage to click it (rare), move and scold
-            noBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                moveNoButton();
-                // Shake the card for dramatic effect
-                mainCard.style.transition = 'transform 0.1s';
-                mainCard.style.transform = 'rotate(2deg) scale(0.98)';
-                setTimeout(() => {
-                    mainCard.style.transform = 'rotate(-2deg) scale(1.02)';
-                }, 100);
-                setTimeout(() => {
-                    mainCard.style.transform = 'rotate(0) scale(1)';
-                }, 250);
-            });
-
-            // --- YES Button: Trigger the celebration ---
-            yesBtn.addEventListener('click', function() {
-                celebration.classList.add('open');
-                launchConfetti();
-            });
-
-            closeCeleb.addEventListener('click', function() {
-                celebration.classList.remove('open');
-            });
-
-            // Click outside the box to close
-            celebration.addEventListener('click', function(e) {
-                if (e.target === celebration) {
-                    celebration.classList.remove('open');
-                }
-            });
-
-            // --- Confetti Emoji Rain ---
-            function launchConfetti() {
-                const emojis = ['💖', '✨', '🫶', '💕', '🌈', '🔥', '🎉', '🥳', '👯', '🌸', '💘', '💗', '🌟', '💫', '❤️‍🔥'];
-                for (let i = 0; i < 60; i++) {
-                    setTimeout(() => {
-                        const span = document.createElement('span');
-                        span.className = 'confetti-emoji';
-                        span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-                        span.style.left = Math.random() * 100 + 'vw';
-                        span.style.fontSize = (1.5 + Math.random() * 3) + 'rem';
-                        span.style.animationDuration = (2 + Math.random() * 3) + 's';
-                        document.body.appendChild(span);
-
-                        // Remove after animation
-                        setTimeout(() => {
-                            span.remove();
-                        }, 5000);
-                    }, i * 60);
-                }
-            }
-
-            // Move the "NO" button to a random spot initially so it looks funny right away
-            window.addEventListener('load', function() {
-                setTimeout(() => {
-                    moveNoButton();
-                }, 300);
-            });
-
-            // Re-adjust position on window resize so it doesn't escape the card
-            window.addEventListener('resize', function() {
-                // just reset its position to somewhere inside
-                if (noBtn.style.position === 'absolute') {
-                    const cardRect = mainCard.getBoundingClientRect();
-                    const padding = 20;
-                    const maxX = cardRect.width - noBtn.offsetWidth - padding;
-                    const maxY = cardRect.height - noBtn.offsetHeight - padding;
-                    let newX = Math.min(parseFloat(noBtn.style.left) || 0, maxX);
-                    let newY = Math.min(parseFloat(noBtn.style.top) || 0, maxY);
-                    if (newX > maxX) noBtn.style.left = maxX + 'px';
-                    if (newY > maxY) noBtn.style.top = maxY + 'px';
-                }
-            });
-
-        })();
+        }
     </script>
-
 </body>
 </html>
